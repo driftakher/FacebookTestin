@@ -1,6 +1,9 @@
 package com.stepdef;
 
+import org.testng.Assert;
+
 import com.common.Base;
+import com.common.ScreenShot;
 import com.pages.SignInPage;
 
 import cucumber.api.java.en.Given;
@@ -22,6 +25,9 @@ public class SignInStep extends Base {
 		//driver.findElement(By.xpath("//input[@id='email']")).sendKeys("01715600101");
 		sip = new SignInPage(driver);
 		sip.getId_Text().sendKeys("01715600101");
+		
+		ScreenShot.ScreenS(driver, "email"); //to take screenshot
+		
 	}
 
 	@When("^user enters valid password$")
@@ -38,16 +44,8 @@ public class SignInStep extends Base {
 
 	@Then("^user will be able to access account$")
 	public void user_will_be_able_to_access_account() throws Throwable {
-		String extitle = "(1) Facebook";
-		String actitile = driver.getTitle();
+		Assert.assertEquals(driver.getTitle(), "Facebook");
 		
-		if (extitle.equals(actitile))
-		{
-			System.out.println("Test is passed");
-		}
-		else {
-			System.out.println("Test is failed");
-		}
 		driver.close();
 	}
 	
